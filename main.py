@@ -6,6 +6,7 @@ world.create_world(700, 800)
 world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/fon_gori1700-800.png")
 pushki = sprite.add_sprite("knopki", 40, 40, costume="pushki")
 nastroiki = sprite.add_sprite("knopki", 130, 40)
+OK = sprite.add_sprite("knopki", 400, 625, False, costume="OK")
 pushka = sprite.add_sprite("pushka", 350, 400, False)
 sprite.set_bottom_to(pushka, 668)
 sprite.show_sprite(pushka)
@@ -32,5 +33,11 @@ def perekluchenie(button, pos):
     if gavs == True:
         ekran_pushek()
 
+
 def ekran_pushek():
-    print(pushka)
+    world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/pixel.png")
+    world.set_world_background_color([88, 88, 88])
+    sprite.hide_sprite(pushka)
+    sprite.hide_sprite(pushki)
+    sprite.hide_sprite(nastroiki)
+    sprite.show_sprite(OK)
