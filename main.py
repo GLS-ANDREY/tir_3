@@ -6,25 +6,31 @@ world.create_world(700, 800)
 world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/fon_gori1700-800.png")
 pushki = sprite.add_sprite("knopki", 40, 40, costume="pushki")
 nastroiki = sprite.add_sprite("knopki", 130, 40)
-OK = sprite.add_sprite("knopki", 400, 625, False, costume="OK")
+zamochek = sprite.add_sprite("knopki", 285, 625, False, "zamochek")
+OK = sprite.add_sprite("knopki", 400, 625, False, "OK")
+ball_blast = sprite.add_sprite("ball_blast", 350, 200)
 pushka = sprite.add_sprite("pushka", 350, 400, False)
+ruka = sprite.add_sprite("ball_blast", 350, 450, costume="ruka")
+palka = sprite.add_sprite("ball_blast", 350, 400, costume="palka")
+sprite.add_text(350, 365, "нажми чтобы начать", font_size=25, bold=True)
 sprite.set_bottom_to(pushka, 668)
 sprite.show_sprite(pushka)
 
 
 @wrap_py.on_mouse_move
 def navedenie_na_knopki(pos):
-    stu = sprite.sprite_collide_point(pushki, pos[0], pos[1])
-    if stu == True:
-        sprite.change_sprite_size_proc(pushki, 110, 110)
-    else:
-        sprite.change_sprite_size_proc(pushki, 100, 100)
+    navedenie_na_knopku(pushki, pos)
+    navedenie_na_knopku(nastroiki, pos)
+    navedenie_na_knopku(OK, pos)
+    navedenie_na_knopku(zamochek, pos)
 
-    stu = sprite.sprite_collide_point(nastroiki, pos[0], pos[1])
+
+def navedenie_na_knopku(nomer_knopki, pos):
+    stu = sprite.sprite_collide_point(nomer_knopki, pos[0], pos[1])
     if stu == True:
-        sprite.change_sprite_size_proc(nastroiki, 110, 110)
+        sprite.change_sprite_size_proc(nomer_knopki, 110, 110)
     else:
-        sprite.change_sprite_size_proc(nastroiki, 100, 100)
+        sprite.change_sprite_size_proc(nomer_knopki, 100, 100)
 
 
 @wrap_py.on_mouse_down()
@@ -33,11 +39,43 @@ def perekluchenie(button, pos):
     if gavs == True:
         ekran_pushek()
 
+    gavs = sprite.sprite_collide_point(nastroiki, pos[0], pos[1])
+    if gavs == True:
+        ekran_nastroek()
 
-def ekran_pushek():
+    gavs = sprite.sprite_collide_point(OK, pos[0], pos[1])
+    if gavs == True:
+        gl_ekran()
+
+
+def gl_ekran():
+    world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/fon_gori1700-800.png")
+    sprite.hide_sprite(OK)
+    sprite.hide_sprite(zamochek)
+    sprite.show_sprite(ball_blast)
+    sprite.show_sprite(nastroiki)
+    sprite.show_sprite(pushki)
+    sprite.show_sprite(pushka)
+
+
+def ekran_nastroek():
+    skrit_gl_ekran()
     world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/pixel.png")
     world.set_world_background_color([88, 88, 88])
+    sprite.show_sprite(zamochek)
+    sprite.show_sprite(OK)
+
+
+def skrit_gl_ekran():
     sprite.hide_sprite(pushka)
     sprite.hide_sprite(pushki)
     sprite.hide_sprite(nastroiki)
+    sprite.hide_sprite(ball_blast)
+
+
+def ekran_pushek():
+    skrit_gl_ekran()
+    world.set_world_background_image("C:/Users/zhuko/wrap_py_catalog/backgrounds/pixel.png")
+    world.set_world_background_color([88, 88, 88])
+    sprite.show_sprite(zamochek)
     sprite.show_sprite(OK)
