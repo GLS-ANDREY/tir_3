@@ -1,4 +1,4 @@
-import wrap_py as wrap, wrap_py.ru
+import wrap_py as wrap, wrap_py.ru, random
 from wrap_py import sprite
 from wrap_py import world
 
@@ -90,7 +90,8 @@ def ekran_pushek():
 
 @wrap.always
 def dvigat_ruku():
+    skorost = 0
     ruka_x = sprite.get_sprite_x(ruka)
-    #ruka_y = sprite.get_sprite_y(ruka)
-    sprite.move_sprite_to(ruka, ruka_x - 5, 450)
-    #sprite.move_sprite_to(ruka, ruka_y - 5, 450)
+    sprite.move_sprite_to(ruka, skorost + ruka_x, 450)
+    if ruka_x > 480:
+        print("opasnost")
